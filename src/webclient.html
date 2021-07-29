@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>WebSocket Client</title>
+  </head>
+  <body>
+    <p>Message from localhost:8443 > <span id="reply">...</span></p>
+    <script>       
+        let uri = "wss://localhost:8443";
+        webSocket = new WebSocket(uri);
+        
+        webSocket.onopen = function (event) {
+            webSocket.send("This is the browser");
+        };
+
+        webSocket.onmessage = function (event) {
+            document.getElementById("reply").textContent = event.data;  
+        };
+
+        webSocket.onerror = function (event) {
+            document.getElementById("reply").textContent = "ERROR! Check Browser Console!"; 
+            console.error("WebSocket error observed:", event);
+        };
+    </script>
+  </body>
+</html>
